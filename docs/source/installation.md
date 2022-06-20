@@ -1,23 +1,23 @@
 Installation
 ============
 
-**my-package** supports Python >= 3.7.
+**omni-sparql** supports Python >= 3.7.
 
 ## Installing with `pip`
 
-**my-package** is available [on PyPI](https://pypi.org/project/my-package/). Just run
+**omni-sparql** is available [on PyPI](https://pypi.org/project/omni-sparql/). Just run
 
 ```bash
-pip install my-package
+pip install omni-sparql
 ```
 
 ## Installing from source
 
-To install **my-package** from source, first clone [the repository](https://github.com/allenai/python-package-template):
+To install **omni-sparql** from source, first clone [the repository](https://github.com/ansonrel/omni_sparql):
 
 ```bash
-git clone https://github.com/allenai/python-package-template.git
-cd python-package-template
+git clone https://github.com/ansonrel/omni_sparql.git
+cd omni_sparql
 ```
 
 Then run
