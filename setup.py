@@ -45,8 +45,8 @@ setup(
     ],
     keywords="",
     url="https://github.com/ansonrel/omni_sparql",
-    author="Allen Institute for Artificial Intelligence",
-    author_email="contact@allenai.org",
+    author="Anthony Sonrel",
+    author_email="anthony.sonrel@uzh.ch",
     license="Apache",
     packages=find_packages(
         exclude=["*.tests", "*.tests.*", "tests.*", "tests"],
