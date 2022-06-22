@@ -1,25 +1,16 @@
-[tool.black]
-line-length = 100
+[tool.poetry]
+name = "omni_sparql"
+version = "0.1.0"
+description = "SPARQL queries for OMNIBENCHMARK triplestore."
+authors = ["Anthony Sonrel <anthony.sonrel@uzh.ch>"]
+license = "Apache"
 
-include = '\.pyi?$'
+[tool.poetry.dependencies]
+python = "^3.7"
+SPARQLWrapper = "^2.0.0"
 
-exclude = '''
-(
-      __pycache__
-    | \.git
-    | \.mypy_cache
-    | \.pytest_cache
-    | \.vscode
-    | \.venv
-    | \bdist\b
-    | \bdoc\b
-)
-'''
-
-[tool.isort]
-profile = "black"
-multi_line_output = 3
+[tool.poetry.dev-dependencies]
 
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
