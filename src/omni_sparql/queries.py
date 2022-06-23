@@ -1,65 +1,27 @@
-from SPARQLWrapper import SPARQLWrapper, JSON
+from SPARQLWrapper import SPARQLWrapper, JSON, XML, TURTLE, N3, RDF, RDFXML, CSV, TSV, JSONLD
 
 
-def show_triple(n_to_show):
-    URL = "http://imlspenticton.uzh.ch/sparql"
+def query_from_sparql(sparql_query, URL = "http://imlspenticton.uzh.ch/sparql", output_format = JSON): 
+    """Runs a SPARQL query. 
 
-    sparql = SPARQLWrapper(URL)
-    sparql.setReturnFormat(JSON)
+    SPARQL queries can be retrieved from the `sparqlCollection` class.  
 
-    sparql.setQuery("""
-
-        SELECT *
-        WHERE {
-            ?s ?p ?o
-        }
-        ORDER BY ?s
-        LIMIT 3
-        """
-    )
-    ret = sparql.queryAndConvert()
-    print("Updated")
-    return(ret.values())
-
-
-def datasets_from_project():
-    URL = "http://imlspenticton.uzh.ch/sparql"
-
-    sparql = SPARQLWrapper(URL)
-    sparql.setReturnFormat(JSON)
-
-    sparql.setQuery("""
-
-        # retrieve datasets associated to a project, also showing original project or imported/modified
-        PREFIX prov: <http://www.w3.org/ns/prov#>
-        PREFIX renku: <https://swissdatasciencecenter.github.io/renku-ontology#>
-        PREFIX schema: <http://schema.org/>
-
-        SELECT DISTINCT ?projectName ?dsName ?dsIdentifier ?originalDsId ?previousVersionDsId ?orignalProjectName ?orignalProjectId
-        WHERE {
-        ?projectId a schema:Project;
-                    schema:name 'omni_batch_processed';
-                    schema:name ?projectName;
-                    renku:hasDataset ?dsId.  
-                    ## all hadDataset IDs related to project
-        ?dsId schema:name ?dsName;
-                schema:identifier ?dsIdentifier. 
-                ## identifier from triples where hadDataset IDs are the subject
-        OPTIONAL { ?dsId prov:wasDerivedFrom/schema:url ?previousVersionDsId } ## <-- for old datasets that were reused
-        OPTIONAL { 
-            ?dsId schema:sameAs/schema:url ?originalDsId ## <-- original ID od dataset
-        }
-        }
-        order by (?dsName)
-        """
-    )
-    ret = sparql.queryAndConvert()
+    Args: 
+        sparql_query (str): a SPARQL command from TODO[define].
+        URL (str): the URL to the triplestore.
+        output_format (str): format of the output. One of SON, XML, TURTLE, N3, RDF, RDFXML, CSV, TSV, JSONLD. 
     
+    Returns: 
+        An output of the query, in the specified format. TODO [see if always dict_values]
+
+    """
+    
+    sparql = SPARQLWrapper(URL)
+    sparql.setReturnFormat(JSON)
+    sparql.setQuery(sparql_query)
+    ret = sparql.queryAndConvert()
     return(ret.values())
 
-
-
-
-
-
+ 
+    
 
