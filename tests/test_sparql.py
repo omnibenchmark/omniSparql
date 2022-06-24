@@ -1,7 +1,7 @@
 from omni_sparql.sparql import getSparqlQuery
 
 def test_query_from_sparql():
-    "Tests the sparql queries: 1) if they all return a string without 'input' tag."
+    "Tests if the sparql queries return a string without 'input' tag."
     
     # set functions without def args and a dummy arg to be sued
     no_def = {
