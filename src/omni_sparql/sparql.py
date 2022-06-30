@@ -51,7 +51,7 @@ class getSparqlQuery:
         SELECT DISTINCT ?projectName ?dsName ?dsIdentifier ?originalDsId ?previousVersionDsId ?orignalProjectName ?orignalProjectId
         WHERE {
         ?projectId a schema:Project;
-                    schema:name ##INPUT0##';
+                    schema:name '##INPUT0##';
                     schema:name ?projectName;
                     renku:hasDataset ?dsId.  
                     ## all hadDataset IDs related to project
@@ -65,7 +65,7 @@ class getSparqlQuery:
         }
         order by (?dsName)
         """
-        query = replace_input(query, project_name)
+        query = replace_input(query, [project_name])
         return(query)
    
 
