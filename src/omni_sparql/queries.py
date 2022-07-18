@@ -20,8 +20,9 @@ def query_from_sparql(sparql_query, URL = "http://imlspenticton.uzh.ch/sparql", 
     sparql.setReturnFormat(JSON)
     sparql.setQuery(sparql_query)
     ret = sparql.queryAndConvert()
-    return(ret.values())
+    return(ret['results']['bindings'])
 
  
-    
+# TODO: query_from_sparql for itererative, which needs the get_sparql_query function to modify it iteratively
+
 
