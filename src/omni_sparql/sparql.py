@@ -489,7 +489,42 @@ class getSparqlQuery:
         query = attr(query, 'isRecursive', setNonRecursive)
         return(query)
 
+    def project_from_file(file): 
+        """
+        Retrieves the information about the *original* project that created a file. 
 
+        Args: 
+            file (str): path to the file to query on, relative to the main directory of the project. E.g. 'data/omni_batch_mnn/cellbench_10_none_20_inverse_corrected_counts.mtx.gz'
+        Returns: 
+            `query`: the query, `file`
+            `project_name`
+            `proejct_link`: Renkulab URL to the project
+            `dateCreated`
+        """
+
+
+
+        query = """
+        PREFIX ns1:<http://www.w3.org/ns/prov#>
+        PREFIX ns2:<https://swissdatasciencecenter.github.io/renku-ontology#>
+        PREFIX ns3:<http://schema.org/>
+        PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX ex: <https://renkulab.io/dataset-files/>
+        SELECT DISTINCT ?query ?project_name ?project_link ?dateCreated
+        WHERE {
+        ?projectId a ns1:Entity;
+                    ns1:atLocation '##INPUT0##'; 
+                    ns1:qualifiedGeneration ?Generation.
+        ?projectId ns1:atLocation ?query .
+        ?Generation ns1:activity ?activity .
+        ?activity ns2:parameter ?params .
+        ?project_link ns2:hasActivity ?activity . 
+        ?project_link ns3:name ?project_name .
+        ?project_link ns3:dateCreated ?dateCreated .
+        }
+        """
+        query = replace_input(query, [file])
+        return(query)
 
 
 # ns3:name = 'full_name'
