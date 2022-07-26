@@ -498,11 +498,9 @@ class getSparqlQuery:
         Returns: 
             `query`: the query, `file`
             `project_name`
-            `proejct_link`: Renkulab URL to the project
+            `project_link`: Renkulab URL to the project
             `dateCreated`
         """
-
-
 
         query = """
         PREFIX ns1:<http://www.w3.org/ns/prov#>
@@ -521,6 +519,40 @@ class getSparqlQuery:
         ?project_link ns2:hasActivity ?activity . 
         ?project_link ns3:name ?project_name .
         ?project_link ns3:dateCreated ?dateCreated .
+        }
+        """
+        query = replace_input(query, [file])
+        return(query)
+
+    def activity_from_file(file): 
+        """
+        Retrieves the activity linked to a file. 
+
+        Args: 
+            file (str): path to the file to query on, relative to the main directory of the project. E.g. 'data/omni_batch_mnn/cellbench_10_none_20_inverse_corrected_counts.mtx.gz'
+        Returns: 
+            `query`: the query, `file`
+            `generation`
+            `activity`
+            `startTime`
+            `endTime`
+        """
+
+        query = """
+        PREFIX ns1:<http://www.w3.org/ns/prov#>
+        PREFIX ns2:<https://swissdatasciencecenter.github.io/renku-ontology#>
+        PREFIX ns3:<http://schema.org/>
+        PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX ex: <https://renkulab.io/dataset-files/>
+        SELECT DISTINCT  ?query ?generation ?activity ?startTime ?endTime
+        WHERE {
+        ?projectId a ns1:Entity;
+                    ns1:atLocation '##INPUT0##'; 
+                    ns1:qualifiedGeneration ?generation .
+        ?projectId ns1:atLocation ?query .
+        ?generation ns1:activity ?activity .
+        ?activity ns1:startedAtTime ?startTime .
+        ?activity ns1:endedAtTime ?endTime .
         }
         """
         query = replace_input(query, [file])
