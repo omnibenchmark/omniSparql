@@ -297,7 +297,7 @@ class getSparqlQuery:
     def input_from_file(file, do_recursive = False): 
         ## TODO: add n_step if user don't want to go either full recursive or not recusrive at all?
         """
-        Retrieves all files used as an input by a file (e.g. method result or processed file). By default, the function will do a recursive search. 
+        Retrieves all files used as an input by a file (e.g. method result or processed file). By default, the function will do a recursive search. Note: the query will ignore any files in the `src` or `log` folders. 
 
         Args: 
             file (str): path to the file to query on, relative to the main directory of the project. E.g. 'data/omni_batch_mnn/cellbench_10_none_20_inverse_corrected_counts.mtx.gz'
@@ -329,8 +329,8 @@ class getSparqlQuery:
         ?activity ns2:parameter ?params .
         ?params ns3:value ?out .
         FILTER (!regex (?out, "##INPUT1##", "i"))  
-        FILTER (!regex (?out, "src", "i"))  
-        FILTER (!regex (?out, "log", "i"))
+        FILTER (!regex (?out, "^src/", "i"))  
+        FILTER (!regex (?out, "^log/", "i"))
         ?pointer ns1:atLocation ?out .
         ?pointer ns3:url ?url .
         
