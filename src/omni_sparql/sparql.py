@@ -78,7 +78,6 @@ class getSparqlQuery:
         query = attr(query,'isRecursive', setNonRecursive)
         return(query)
 
-### TODO: test from here ------------------------------------------------------------------------
     def name_from_keyword(keyword): 
         """
         Retrieves dataset name (`name`) and pseudoname (`slug`) from its keyword.
