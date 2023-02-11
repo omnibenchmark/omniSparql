@@ -4,6 +4,19 @@
 
 ## Usage
 
+### Minimal usage
+
+The typical use of `omni-SPARQL` consists in forming a SPARQL based on your need and running it on your triplestore URL: 
+
+```python
+import omni_sparql as omni
+## get a query
+query = omni.getSparqlQuery.CLASS_METHOD
+## run the query 
+out = omni.query_from_sparql(query, URL = TRIPLESTORE_URL)
+```
+### Detailled usage
+
 Let's start by getting a query. Several SPARQL queries are available in the **`getSparqlQuery`** class, which you can explore with the `help` page of the page; 
 
 ```python
@@ -21,37 +34,49 @@ class getSparqlQuery(builtins.object)
  |      A string which contains a SPARQL command to use with `query_from_sparql`.
  |  
  |  Methods defined here:
- |  
- |  all_triples(order_by='s', n=10)
- |      Shows all triples. 
+
+ [...]
+ |  imported_datasets_from_project(project_name)
+ |      Retrieves all datasets imported by a project.
  |      
  |      Args: 
- |          order_by (str): how to order the output. "s", "p", or "o". 
- |          n (int): how many triples to show.
- ...
+ |          project_name (str): abbreviated name of the project, e.g. 'omni_batch_processed'
+ |      Returns: 
+ |          `query`: the query, `project_name`
+ |          `full_name`: project full name
+ |          `short_name`: project short name
+ |          `keyword`: keyword associated to the dataset
+ |          `creator`: the mail of the author of the dataset
+ |          `dateCreated`
+ |          `descr`: decription of the dataset
+ |          `originID`: ID of dataset
+ [...]
+
 ```
 
-As an example, we can select the first query; `all_triples` and store it for the next step. Beware that, unlike this example, most queries do have arguments that you will have to specify (e.g. file or project to query on).
+As an example, we can select the query showed above; `imported_datasets_from_project` and store it for the next step. As explained in the class method documentation, this function helps to identify which renku datasets were imported by a project, only by providing its name. Let's use it to query all datasets imported by one of the `iris` omnibenchmark; [`iris_accuracy`](https://renkulab.io/gitlab/omnibenchmark/iris_example/iris-accuracy) metric project.
 
 Prepare the query: 
 
 ```python
-q = omni.getSparqlQuery.all_triples()
+q = omni.getSparqlQuery.imported_datasets_from_project(project_name='iris_accuracy')
 q
 ```
 ```
-'\n        SELECT *\n        WHERE {\n            ?s ?p ?o\n        }\n        ORDER BY ?s\n        LIMIT 10\n        '
+"\n        PREFIX ns1:<http://www.w3.org/ns/prov#>\n        PREFIX ns2:<https://swissdatasciencecenter.github.io/renku-ontology#>\n        PREFIX ns3 [...]"
 ```
 
-The output of any SPARQL query from `getSparqlQuery` can be used to query our triplestore with the **`query_from_sparql`** function: 
+The output of any SPARQL query from `getSparqlQuery` can be used to query a specified triplestore with the **`query_from_sparql`** function (you can ask the URL of your benchmark by contacting the dev team)- 
 
 ```python
-omni.query_from_sparql(q)
-```
+out = omni.query_from_sparql(q, URL = "http://imlspenticton.uzh.ch/omni_iris_sparql")
 
 ```
-dict_values([{'vars': ['s', 'p', 'o']}, {'bindings': [{'s': {'type': 'uri', 'value': 'https://github.com/swissdatasciencecenter/renku-python/tree/v0.14.1'}, ...
+All queries typically return a dictionary or a list of dictionaries with fields describing your output. In this case, the function retrieves the following information about the datasets imported by the specified project: 
+
+```
+out[0].keys()
+> dict_keys(['query', 'full_name', 'short_name', 'keyword', 'creator', 'dateCreated', 'descr', 'originID'])
 ```
 
-which outputs a dictionary of triples returned by the query. 
 
