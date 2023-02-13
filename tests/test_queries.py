@@ -1,4 +1,4 @@
-from omni_sparql.queries import query_from_sparql
+from omniSparql.queries import query_from_sparql
 
 def test_query_from_sparql():
     "Tests the query function on dpbedia."

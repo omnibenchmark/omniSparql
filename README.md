@@ -9,7 +9,7 @@
 The typical use of `omni-SPARQL` consists in forming a SPARQL based on your need and running it on your triplestore URL: 
 
 ```python
-import omni_sparql as omni
+import omniSparql as omni
 ## get a query
 query = omni.getSparqlQuery.CLASS_METHOD
 ## run the query 
@@ -20,12 +20,12 @@ out = omni.query_from_sparql(query, URL = TRIPLESTORE_URL)
 Let's start by getting a query. Several SPARQL queries are available in the **`getSparqlQuery`** class, which you can explore with the `help` page of the page; 
 
 ```python
-import omni_sparql as omni
+import omniSparql as omni
 help(omni.getSparqlQuery)
 ```
 
 ```
-Help on class getSparqlQuery in module omni_sparql.sparql:
+Help on class getSparqlQuery in module omniSparql.sparql:
 
 class getSparqlQuery(builtins.object)
  |  Available SPARQL queries. One or multiple input to define when called. 

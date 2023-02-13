@@ -1,4 +1,4 @@
-from omni_sparql.sparql import getSparqlQuery
+from omniSparql.sparql import getSparqlQuery
 
 def test_query_from_sparql():
     "Tests if the sparql queries return a string without 'input' tag."
