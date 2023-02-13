@@ -1,12 +1,12 @@
-# omni-SPARQL
+# omniSPARQL
 
-`omni-SPARQL` is a python module to query triples from the OMNIBENCHMARK triplestore. Its main usage is to retrieve lineage information in an OMNIBENCHMARK (see the [lineage query file](https://github.com/ansonrel/contributed-project-templates/blob/dev/metric_summary/src/generate_json_from_res_files.py) of summary metric projects).
+`omniSparql` is a python module to query triples from the OMNIBENCHMARK triplestore. Its main usage is to retrieve lineage information in an OMNIBENCHMARK (see the [lineage query file](https://github.com/ansonrel/contributed-project-templates/blob/dev/metric_summary/src/generate_json_from_res_files.py) of summary metric projects).
 
 ## Usage
 
 ### Minimal usage
 
-The typical use of `omni-SPARQL` consists in forming a SPARQL based on your need and running it on your triplestore URL: 
+The typical use of `omniSparql` consists in forming a SPARQL based on your need and running it on your triplestore URL: 
 
 ```python
 import omniSparql as omni
