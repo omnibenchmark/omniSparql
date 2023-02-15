@@ -8,6 +8,7 @@ https://github.com/pypa/sampleproject
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
 import pathlib
+from pathlib import Path
 
 here = pathlib.Path(__file__).parent.resolve()
 
@@ -38,6 +39,10 @@ def read_requirements(filename: str):
             requirements.append(fix_url_dependencies(line))
     return requirements
 
+
+# for long description README path:
+this_directory = Path(__file__).parent
+
 # Arguments marked as "Required" below must be included for upload to PyPI.
 # Fields marked as "Optional" may be commented out.
 
@@ -60,7 +65,7 @@ setup(
     # For a discussion on single-sourcing the version across setup.py and the
     # project code, see
     # https://packaging.python.org/guides/single-sourcing-package-version/
-    version="0.0.2",  # Required
+    version="0.0.3",  # Required
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#summary
@@ -73,7 +78,8 @@ setup(
     #
     # This field corresponds to the "Description" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#description-optional
-    #long_description=long_description,  # Optional
+    long_description=(this_directory / "README.md").read_text(),  # Optional
+    long_description_content_type='text/markdown',
     # Denotes that our long_description is in Markdown; valid values are
     # text/plain, text/x-rst, and text/markdown
     #
